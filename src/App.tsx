@@ -13,7 +13,7 @@ function App(): JSX.Element {
 
   const [list, setLists] = useState<ITask[]>([]);
 
-  const taskInput = useRef<HTMLInputElement>(null);
+  const numInput = useRef<HTMLInputElement>(null);
 
 
 
@@ -21,11 +21,11 @@ function App(): JSX.Element {
     e.preventDefault();
     const j: number[] = list.map((t: ITask, i: number) => (t.suma))
     setNewSum(j[0]);
-    taskInput.current?.focus();
+    numInput.current?.focus();
 
   }
 
-  const toggleDoneTask = (i: number): void => {
+  const toggleDoneSum = (i: number): void => {
     const newSums: ITask[] = [...list];
     newSums[i].done = !newSums[i].done;
     setLists(newSums);
@@ -41,6 +41,7 @@ function App(): JSX.Element {
   const add = function()  {
     const suma = newSum + 5
     setNewSum(suma)
+    console.log(suma)
     const newSums: ITask[] = [...list, { suma, done: false }]
     setLists(newSums)
 
@@ -49,6 +50,7 @@ function App(): JSX.Element {
   const sbr = function()  {
     const suma = newSum - 5
     setNewSum(suma)
+    console.log(suma)
     const newSums: ITask[] = [...list, { suma, done: false }]
     setLists(newSums)
   }
@@ -60,7 +62,7 @@ function App(): JSX.Element {
           <div className="card">
             <div className="card-body">
               <form onSubmit={handleSubmit}>
-                <input type="number" onChange={e => setNewSum(e.target.valueAsNumber)} value={newSum} id="numero" className="form-control" ref={taskInput} autoFocus />
+                <input type="number" onChange={e => setNewSum(e.target.valueAsNumber)} value={newSum} id="numero" className="form-control" ref={numInput} autoFocus />
                 <button className="btn btn-success btn-block mt-2"  onClick={()=>add()}>
                   Sumar 5
                 </button>
@@ -74,7 +76,7 @@ function App(): JSX.Element {
             list.map((t: ITask, i: number) => (
               <div className="card card-body mt-2" key={i}>
                 <h2 style={{ textDecoration: t.done ? 'line-through' : '' }}>{t.suma}</h2>
-                <button className="btn btn-primary" onClick={() => toggleDoneTask(i)}>
+                <button className="btn btn-primary" onClick={() => toggleDoneSum(i)}>
                   {t.done ? '✔️' : '✕'}
                 </button>
                 <button className="btn btn-danger" onClick={() => removeSum(i)}>
